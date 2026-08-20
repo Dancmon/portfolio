@@ -336,6 +336,34 @@
   .job li{margin-bottom:7px;}
   .role-sub{font-size:13px; color:var(--ink-muted); margin:2px 0 10px; font-style:italic;}
 
+  /* EXPERIENCE TABS */
+  .exp-layout{display:grid; grid-template-columns:270px 1fr; gap:28px; align-items:start; margin-top:8px;}
+  .exp-list{display:flex; flex-direction:column; gap:10px; position:sticky; top:88px;}
+  .exp-tab{
+    text-align:left; background:var(--surface); border:1px solid var(--border); border-left:3px solid transparent;
+    border-radius:10px; padding:14px 16px; cursor:pointer; display:flex; flex-direction:column; gap:4px;
+    font-family:inherit; transition:border-color .25s ease, background .25s ease, transform .2s ease;
+  }
+  .exp-tab:hover{background:var(--surface-2); transform:translateX(4px);}
+  .exp-tab.is-active{border-left-color:var(--accent); background:var(--surface-2);}
+  .exp-tab-role{color:var(--ink); font-weight:700; font-size:14px;}
+  .exp-tab-meta{color:var(--ink-muted); font-size:12px;}
+  .exp-panels{position:relative;}
+  .exp-panel{
+    display:none; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px 30px;
+  }
+  .exp-panel.is-active{display:block; animation:expIn .4s ease;}
+  @keyframes expIn{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+  .exp-panel ul{margin:10px 0 0; padding-left:18px; color:var(--ink-muted); font-size:14.5px;}
+  .exp-panel li{margin-bottom:8px;}
+  @media (max-width:800px){
+    .exp-layout{grid-template-columns:1fr;}
+    .exp-list{position:static; flex-direction:row; overflow-x:auto; padding-bottom:6px;}
+    .exp-tab{flex:0 0 auto; min-width:220px;}
+    .exp-tab:hover{transform:none;}
+  }
+  @media (prefers-reduced-motion: reduce){ .exp-panel.is-active{animation:none;} }
+
   /* EDUCATION / CERT */
   .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
   .info-card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px;}
@@ -606,55 +634,71 @@
   <div class="wrap">
     <span class="eyebrow">Trajetória</span>
     <h2>Experiência profissional</h2>
-    <p class="lede">&nbsp;</p>
-    <div class="timeline">
+    <p class="lede">Passe o mouse ou clique em um cargo para ver os detalhes.</p>
 
-      <div class="job">
-        <div class="job-head">
-          <div class="job-title">Supervisor de Torre de Controle e Business Intelligence</div>
-          <div class="job-period">Mai/2026 – Atual</div>
-        </div>
-        <div class="job-company">JCE Transportes · Itu/SP</div>
-        <div class="role-sub">Anteriormente Analista de Dados (Nov/2025 – Mai/2026) na mesma empresa</div>
-        <ul>
-          <li>Desenvolvimento de painéis em Power BI, estruturando pipeline de dados completo — extração via API, processamento em Azure Functions com Python, armazenamento em Azure SQL Database e visualização em Power BI —, sustentando os principais indicadores de faturamento da empresa.</li>
-          <li>Gestão da telemetria da frota (SSX Tracking), com análise de notas de telemetria e consumo de combustível, gerando relatórios orientados a dados e feedback direto aos motoristas.</li>
-          <li>Implantação do sistema Atlas Connect e modelagem das regras de gerenciamento de risco (PGR), com monitoramento analítico de ~400 ativos via rastreadores.</li>
-          <li>Gestão de dados de jornada de motoristas via ATS Guia RH, assegurando conformidade legal e qualidade das informações.</li>
-          <li>Administração do ERP corporativo ESL Cloud e responsabilidade pela área de Tecnologia e Inovação.</li>
-          <li>Liderança técnica de equipe de 3 profissionais, definindo processos e padrões de análise de dados na Torre de Controle e Monitoramento.</li>
-        </ul>
+    <div class="exp-layout">
+      <div class="exp-list" role="tablist" aria-label="Experiência profissional">
+        <button class="exp-tab is-active" type="button" data-exp="0" role="tab" aria-selected="true">
+          <span class="exp-tab-role">Supervisor de Torre de Controle e BI</span>
+          <span class="exp-tab-meta">JCE Transportes · Mai/2026 – Atual</span>
+        </button>
+        <button class="exp-tab" type="button" data-exp="1" role="tab" aria-selected="false">
+          <span class="exp-tab-role">Analista de Dados</span>
+          <span class="exp-tab-meta">Comando Diesel · Fev/2024 – Out/2025</span>
+        </button>
+        <button class="exp-tab" type="button" data-exp="2" role="tab" aria-selected="false">
+          <span class="exp-tab-role">Jovem Aprendiz (Senai)</span>
+          <span class="exp-tab-meta">Grupo Petrópolis · Fev/2022 – Mar/2023</span>
+        </button>
       </div>
 
-      <div class="job">
-        <div class="job-head">
-          <div class="job-title">Analista de Dados</div>
-          <div class="job-period">Fev/2024 – Out/2025</div>
+      <div class="exp-panels">
+        <div class="exp-panel is-active" id="exp-panel-0">
+          <div class="job-head">
+            <div class="job-title">Supervisor de Torre de Controle e Business Intelligence</div>
+            <div class="job-period">Mai/2026 – Atual</div>
+          </div>
+          <div class="job-company">JCE Transportes · Itu/SP</div>
+          <div class="role-sub">Anteriormente Analista de Dados (Nov/2025 – Mai/2026) na mesma empresa</div>
+          <ul>
+            <li>Desenvolvimento de painéis em Power BI, estruturando pipeline de dados completo — extração via API, processamento em Azure Functions com Python, armazenamento em Azure SQL Database e visualização em Power BI —, sustentando os principais indicadores de faturamento da empresa.</li>
+            <li>Gestão da telemetria da frota (SSX Tracking), com análise de notas de telemetria e consumo de combustível, gerando relatórios orientados a dados e feedback direto aos motoristas.</li>
+            <li>Implantação do sistema Atlas Connect e modelagem das regras de gerenciamento de risco (PGR), com monitoramento analítico de ~400 ativos via rastreadores.</li>
+            <li>Gestão de dados de jornada de motoristas via ATS Guia RH, assegurando conformidade legal e qualidade das informações.</li>
+            <li>Administração do ERP corporativo ESL Cloud e responsabilidade pela área de Tecnologia e Inovação.</li>
+            <li>Liderança técnica de equipe de 3 profissionais, definindo processos e padrões de análise de dados na Torre de Controle e Monitoramento.</li>
+          </ul>
         </div>
-        <div class="job-company">Comando Diesel Transporte e Logística · Boituva/SP</div>
-        <div class="role-sub">Trajetória interna: Auxiliar de Logística → Assistente de Logística → Analista de Dados</div>
-        <ul>
-          <li>Um dos responsáveis pela criação e estruturação do setor de Análise de Dados da empresa, sendo o principal responsável pela criação e desenvolvimento dos dashboards de BI implementados.</li>
-          <li>Análise e tratamento de dados com foco em inteligência de negócios, contribuindo para a gestão de mais de 1.200 ativos distribuídos em mais de 10 filiais em todo o Brasil, com aplicação de metodologias como ETL e CRISP-DM.</li>
-          <li>Desenvolvimento de dashboards interativos no Power BI, com DAX, Power Query e extração via API REST, além de consultas SQL em bases relacionais, viabilizando KPIs alinhados às metas corporativas.</li>
-          <li>Automação de processos operacionais com Power Automate (RPA), reduzindo atividades manuais, além de relatórios avançados em Excel com Power Query.</li>
-          <li>Criação da camada visual dos painéis no Figma e implementação de gestão à vista em 9 TVs atualizadas em tempo real.</li>
-          <li>Atuação consultiva junto a Logística, Torre de Controle, Faturamento, Gerenciamento de Riscos e Controle de Jornada, com uso de sistemas SAP, Globus, ATS e Apisul.</li>
-        </ul>
-      </div>
 
-      <div class="job">
-        <div class="job-head">
-          <div class="job-title">Jovem Aprendiz (Senai)</div>
-          <div class="job-period">Fev/2022 – Mar/2023</div>
+        <div class="exp-panel" id="exp-panel-1">
+          <div class="job-head">
+            <div class="job-title">Analista de Dados</div>
+            <div class="job-period">Fev/2024 – Out/2025</div>
+          </div>
+          <div class="job-company">Comando Diesel Transporte e Logística · Boituva/SP</div>
+          <div class="role-sub">Trajetória interna: Auxiliar de Logística → Assistente de Logística → Analista de Dados</div>
+          <ul>
+            <li>Um dos responsáveis pela criação e estruturação do setor de Análise de Dados da empresa, sendo o principal responsável pela criação e desenvolvimento dos dashboards de BI implementados.</li>
+            <li>Análise e tratamento de dados com foco em inteligência de negócios, contribuindo para a gestão de mais de 1.200 ativos distribuídos em mais de 10 filiais em todo o Brasil, com aplicação de metodologias como ETL e CRISP-DM.</li>
+            <li>Desenvolvimento de dashboards interativos no Power BI, com DAX, Power Query e extração via API REST, além de consultas SQL em bases relacionais, viabilizando KPIs alinhados às metas corporativas.</li>
+            <li>Automação de processos operacionais com Power Automate (RPA), reduzindo atividades manuais, além de relatórios avançados em Excel com Power Query.</li>
+            <li>Criação da camada visual dos painéis no Figma e implementação de gestão à vista em 9 TVs atualizadas em tempo real.</li>
+            <li>Atuação consultiva junto a Logística, Torre de Controle, Faturamento, Gerenciamento de Riscos e Controle de Jornada, com uso de sistemas SAP, Globus, ATS e Apisul.</li>
+          </ul>
         </div>
-        <div class="job-company">Grupo Petrópolis · Boituva/SP</div>
-        <ul>
-          <li>Elaboração de dashboards em Excel para acompanhamento de manutenção e análise de dados operacionais e de performance do setor de PCM.</li>
-          <li>Criação de relatórios com indicadores-chave de desempenho (KPIs) e apoio no controle e organização das informações de manutenção preventiva e corretiva.</li>
-        </ul>
-      </div>
 
+        <div class="exp-panel" id="exp-panel-2">
+          <div class="job-head">
+            <div class="job-title">Jovem Aprendiz (Senai)</div>
+            <div class="job-period">Fev/2022 – Mar/2023</div>
+          </div>
+          <div class="job-company">Grupo Petrópolis · Boituva/SP</div>
+          <ul>
+            <li>Elaboração de dashboards em Excel para acompanhamento de manutenção e análise de dados operacionais e de performance do setor de PCM.</li>
+            <li>Criação de relatórios com indicadores-chave de desempenho (KPIs) e apoio no controle e organização das informações de manutenção preventiva e corretiva.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -881,6 +925,32 @@
     }, {root: track, threshold:[0.6]});
     cards.forEach(function(c){ io.observe(c); });
   }
+})();
+</script>
+<script>
+(function(){
+  var tabs = Array.from(document.querySelectorAll('.exp-tab'));
+  var panels = Array.from(document.querySelectorAll('.exp-panel'));
+  if(!tabs.length || !panels.length) return;
+
+  function activate(idx){
+    tabs.forEach(function(t, i){
+      var on = i === idx;
+      t.classList.toggle('is-active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach(function(p, i){ p.classList.toggle('is-active', i === idx); });
+  }
+
+  tabs.forEach(function(tab, i){
+    tab.addEventListener('click', function(){
+      activate(i);
+      tab.scrollIntoView({behavior:'smooth', inline:'nearest', block:'nearest'});
+    });
+    tab.addEventListener('mouseenter', function(){
+      if(window.matchMedia('(hover: hover) and (pointer: fine)').matches){ activate(i); }
+    });
+  });
 })();
 </script>
 </body>
